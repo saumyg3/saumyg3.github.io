@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Saumya Goyal — Data Scientist & ML Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=JetBrains+Mono:wght@400;500&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f4f1ea;
+    --bg-card: #ebe6db;
+    --ink: #1a1a1a;
+    --ink-soft: #4a4a4a;
+    --ink-faint: #8a8579;
+    --rule: #c9c2b1;
+    --accent: #b8451e;
+    --accent-soft: #d96b3a;
+    --serif: 'Fraunces', 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Inter Tight', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', 'Courier New', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* Subtle paper grain */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ============ NAV ============ */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(244, 241, 234, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease;
+  }
+
+  nav.scrolled { border-bottom-color: var(--rule); }
+
+  .nav-mark {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.4rem;
+    letter-spacing: -0.01em;
+  }
+
+  .nav-mark span { color: var(--accent); }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-weight: 500;
+  }
+
+  .nav-links a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    transition: color 0.2s;
+    position: relative;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0;
+    width: 0; height: 1px;
+    background: var(--accent);
+    transition: width 0.3s ease;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+  .nav-links a:hover::after { width: 100%; }
+
+  /* ============ HERO ============ */
+  .hero {
+    min-height: 100vh;
+    padding: 8rem 3rem 4rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    position: relative;
+  }
+
+  .hero-meta {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.1s forwards;
+  }
+
+  .hero-meta::before {
+    content: '';
+    display: block;
+    width: 40px; height: 1px;
+    background: var(--ink-faint);
+  }
+
+  .hero h1 {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(3rem, 7vw, 6.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.2s forwards;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+  }
+
+  .hero h1 .small {
+    display: block;
+    font-size: 0.45em;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-weight: 400;
+    margin-top: 0.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  .hero-tagline {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 28rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.4s forwards;
+  }
+
+  .hero-right {
+    position: relative;
+    height: 70vh;
+    opacity: 0;
+    animation: fadeIn 1.2s ease 0.5s forwards;
+  }
+
+  .hero-card {
+    position: absolute;
+    background: var(--bg-card);
+    border: 1px solid var(--rule);
+    padding: 1.5rem;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--ink-soft);
+    box-shadow: 0 30px 60px -20px rgba(0,0,0,0.15);
+  }
+
+  .hero-card .label {
+    color: var(--ink-faint);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-card .value {
+    font-family: var(--serif);
+    font-size: 1.75rem;
+    color: var(--ink);
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  .hero-card .unit {
+    font-size: 0.85rem;
+    font-style: italic;
+    color: var(--ink-faint);
+    margin-left: 0.25rem;
+  }
+
+  .card-1 { top: 5%; left: 5%; width: 220px; transform: rotate(-2deg); }
+  .card-2 { top: 30%; right: 10%; width: 240px; transform: rotate(1.5deg); }
+  .card-3 { bottom: 15%; left: 15%; width: 250px; transform: rotate(-1deg); }
+  .card-4 { bottom: 5%; right: 5%; width: 200px; transform: rotate(2deg); }
+
+  .hero-card:hover {
+    transform: rotate(0deg) translateY(-5px);
+    transition: transform 0.4s ease;
+    z-index: 10;
+  }
+
+  /* ============ SECTION GENERAL ============ */
+  section {
+    padding: 6rem 3rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 2rem;
+    margin-bottom: 4rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .section-num {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .section-kicker {
+    margin-left: auto;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+
+  /* ============ EXPERIENCE ============ */
+  .experience-grid {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 3rem;
+  }
+
+  .exp-item {
+    display: contents;
+  }
+
+  .exp-period {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--ink-faint);
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  .exp-content {
+    padding: 1.5rem 0 3rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  .exp-role {
+    font-family: var(--serif);
+    font-size: 1.75rem;
+    font-weight: 400;
+    margin-bottom: 0.25rem;
+    letter-spacing: -0.01em;
+  }
+
+  .exp-role em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .exp-company {
+    font-family: var(--sans);
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .exp-company .loc {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .exp-company .loc::before { content: '◌  '; }
+
+  .exp-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    max-width: 60rem;
+  }
+
+  .exp-bullets li {
+    padding-left: 1.5rem;
+    position: relative;
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+
+  .exp-bullets li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-family: var(--serif);
+  }
+
+  .exp-bullets strong {
+    color: var(--ink);
+    font-weight: 600;
+    background: linear-gradient(transparent 60%, rgba(184, 69, 30, 0.15) 60%);
+    padding: 0 2px;
+  }
+
+  /* ============ PROJECTS ============ */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  .project-card {
+    background: var(--bg-card);
+    border: 1px solid var(--rule);
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  .project-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px -15px rgba(0,0,0,0.15);
+  }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 3px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+
+  .project-card:hover::before { transform: scaleX(1); }
+
+  .project-num {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.15em;
+    margin-bottom: 1rem;
+  }
+
+  .project-title {
+    font-family: var(--serif);
+    font-size: 1.85rem;
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin-bottom: 1rem;
+  }
+
+  .project-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .project-desc {
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    margin-bottom: 1.5rem;
+  }
+
+  .project-stats {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+    padding: 1.25rem 0;
+    border-top: 1px dashed var(--rule);
+    border-bottom: 1px dashed var(--rule);
+  }
+
+  .stat .num {
+    font-family: var(--serif);
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .stat .label {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 0.35rem;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .tag {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-soft);
+    padding: 0.25rem 0.6rem;
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    background: var(--bg);
+  }
+
+  /* ============ SKILLS ============ */
+  .skills-block {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4rem 5rem;
+  }
+
+  .skill-group h3 {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  .skill-group .pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .pill {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--ink);
+    padding: 0.35rem 0.75rem;
+    background: var(--bg-card);
+    border: 1px solid var(--rule);
+    transition: all 0.2s;
+  }
+
+  .pill:hover {
+    background: var(--ink);
+    color: var(--bg);
+    border-color: var(--ink);
+  }
+
+  /* ============ CONTACT ============ */
+  .contact-section {
+    padding: 8rem 3rem;
+    text-align: center;
+    border-top: 1px solid var(--rule);
+    margin-top: 4rem;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .contact-eyebrow {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-bottom: 2rem;
+  }
+
+  .contact-headline {
+    font-family: var(--serif);
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 3rem;
+    max-width: 32rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .contact-headline em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    max-width: 56rem;
+    margin: 0 auto;
+  }
+
+  .contact-cell {
+    background: var(--bg);
+    padding: 2rem 1.5rem;
+    text-align: left;
+    text-decoration: none;
+    color: var(--ink);
+    transition: background 0.2s;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .contact-cell:hover { background: var(--bg-card); }
+
+  .contact-cell .label {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+
+  .contact-cell .value {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-weight: 400;
+    word-break: break-word;
+  }
+
+  .contact-cell .arrow {
+    margin-top: auto;
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    color: var(--accent);
+    transition: transform 0.3s;
+  }
+
+  .contact-cell:hover .arrow { transform: translateX(6px); }
+
+  /* ============ FOOTER ============ */
+  footer {
+    padding: 3rem;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* ============ ANIMATIONS ============ */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 900px) {
+    nav { padding: 1.25rem 1.5rem; }
+    .nav-links { gap: 1.25rem; font-size: 0.7rem; }
+    .hero {
+      grid-template-columns: 1fr;
+      padding: 7rem 1.5rem 3rem;
+      gap: 2rem;
+    }
+    .hero-right { height: 50vh; }
+    .card-1 { width: 180px; }
+    .card-2 { width: 190px; }
+    .card-3 { width: 200px; }
+    .card-4 { width: 170px; }
+    section { padding: 4rem 1.5rem; }
+    .section-header { flex-direction: column; gap: 0.5rem; align-items: flex-start; }
+    .section-kicker { margin-left: 0; }
+    .experience-grid { grid-template-columns: 1fr; gap: 0; }
+    .exp-period { padding-top: 1.5rem; border-top: 1px solid var(--rule); padding-bottom: 0.5rem; }
+    .exp-content { border-top: none; padding-top: 0; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .skills-block { grid-template-columns: 1fr; gap: 2.5rem; }
+    .contact-grid { grid-template-columns: repeat(2, 1fr); }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-mark">Saumya<span>.</span> Goyal</div>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ===== HERO ===== -->
+<header class="hero">
+  <div class="hero-left">
+    <div class="hero-meta">UC Irvine · Class of 2026</div>
+    <h1>
+      Building things<br>
+      with <em>data</em>,<br>
+      models, &amp; care.
+      <span class="small">— Saumya Goyal, data scientist.</span>
+    </h1>
+    <p class="hero-tagline">
+      Senior at UC Irvine studying data science with a minor in management. I work at the seam between machine learning, analytics infrastructure, and the people who use it — most recently at Chipotle, where I cut a four-hour reporting workflow down to twenty minutes.
+    </p>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-card card-1">
+      <div class="label">Reporting Time Saved</div>
+      <div class="value">92<span class="unit">%</span></div>
+    </div>
+    <div class="hero-card card-2">
+      <div class="label">Real F&amp;O Records</div>
+      <div class="value">2.5M<span class="unit">+</span></div>
+    </div>
+    <div class="hero-card card-3">
+      <div class="label">SEC Filing Characters Embedded</div>
+      <div class="value">220K<span class="unit">+</span></div>
+    </div>
+    <div class="hero-card card-4">
+      <div class="label">XGBoost AUC-ROC</div>
+      <div class="value">0.735</div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== EXPERIENCE ===== -->
+<section id="work" class="reveal">
+  <div class="section-header">
+    <span class="section-num">01 / Selected Work</span>
+    <h2 class="section-title">Where I've <em>built</em>.</h2>
+    <span class="section-kicker">2022 — Present</span>
+  </div>
+
+  <div class="experience-grid">
+
+    <div class="exp-item">
+      <div class="exp-period">Jun 2025 — Dec 2025</div>
+      <div class="exp-content">
+        <h3 class="exp-role"><em>Digital Analyst</em> Intern</h3>
+        <div class="exp-company">Chipotle Mexican Grill, Inc. <span class="loc">Newport Beach, CA</span></div>
+        <ul class="exp-bullets">
+          <li>Automated data flows from Adobe Analytics into Excel, Power BI, and PowerPoint — cutting leadership reporting time from <strong>4 hours to 20 minutes</strong>, a 92% reduction.</li>
+          <li>Led migration of the digital analytics framework from Adobe Analytics to Customer Journey Analytics, working with data engineering and product teams on mapping, validation, and continuity.</li>
+          <li>Designed custom metrics &amp; dimensions via a data matrix, improving reliability checks by 30% and shipping <strong>5+ landing pages</strong> that drove a 3% engagement lift and 2.5% conversion lift.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-period">Aug 2024 — Sep 2024</div>
+      <div class="exp-content">
+        <h3 class="exp-role"><em>Data Integration</em> &amp; Dashboard Developer</h3>
+        <div class="exp-company">GSLab | GAVS <span class="loc">Pune, India</span></div>
+        <ul class="exp-bullets">
+          <li>Built API workflows processing <strong>10,000+ real-time data points daily</strong>, reducing reporting delays by 40% and clearing three key bottlenecks within a quarter.</li>
+          <li>Cut data retrieval latency by 30% using Apache Spark and Scala for large-scale processing.</li>
+          <li>Developed Power BI dashboards that improved business decision-making efficiency by 15%.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-period">Jun 2024 — Aug 2024</div>
+      <div class="exp-content">
+        <h3 class="exp-role"><em>Software Engineering</em> Intern <span style="font-style:normal; font-size:0.6em; color:var(--ink-faint); letter-spacing:0.1em; text-transform:uppercase;">— AI/ML</span></h3>
+        <div class="exp-company">Clik.AI <span class="loc">Delhi, India</span></div>
+        <ul class="exp-bullets">
+          <li>Built AI pipelines for extracting data from CRE property reports — improving accuracy and scalability by 25%.</li>
+          <li>Optimized LLM token usage to <strong>cut query costs by 40%</strong>.</li>
+          <li>Lifted classification accuracy by 15% through systematic model evaluation and fine-tuning across 500+ test cases.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-period">Jul 2023 — Sep 2023</div>
+      <div class="exp-content">
+        <h3 class="exp-role"><em>Software Engineering</em> Intern <span style="font-style:normal; font-size:0.6em; color:var(--ink-faint); letter-spacing:0.1em; text-transform:uppercase;">— API &amp; Cloud</span></h3>
+        <div class="exp-company">Galaxy Automation <span class="loc">Mumbai, India</span></div>
+        <ul class="exp-bullets">
+          <li>Built complex Web APIs that cut manual processing time by 35% for client cloud applications.</li>
+          <li>Automated third-party integrations including Azure and MySQL, improving system reliability by 20%.</li>
+          <li>Deployed <strong>10+ containerized applications</strong> with Docker and Kubernetes, halving cloud deployment time.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-period">Jun 2022 — Aug 2022</div>
+      <div class="exp-content">
+        <h3 class="exp-role"><em>Web Development</em> Intern</h3>
+        <div class="exp-company">Boch &amp; Fernsh Inc. <span class="loc">Mumbai, India</span></div>
+        <ul class="exp-bullets">
+          <li>Lifted user engagement 20% by designing responsive web pages for clients including Botim using WordPress.</li>
+          <li>Created digital marketing content for clients like 7-Eleven, increasing ad engagement by 18%.</li>
+          <li>Drove a 15% traffic increase through web optimizations grounded in RStudio and Excel insights.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== PROJECTS ===== -->
+<section id="projects" class="reveal">
+  <div class="section-header">
+    <span class="section-num">02 / Things I've Built</span>
+    <h2 class="section-title">Selected <em>projects</em>.</h2>
+    <span class="section-kicker">Independent Work</span>
+  </div>
+
+  <div class="projects-grid">
+
+    <article class="project-card">
+      <div class="project-num">PROJECT 01</div>
+      <h3 class="project-title"><em>MedPay</em> — Healthcare Claim Processing API</h3>
+      <p class="project-desc">A layered C# / .NET 10 system handling real insurance math — copay → deductible → coinsurance → out-of-pocket maximum — with 6 business-rule validations, 10 REST endpoints, and 18 unit tests. Containerized, CI/CD'd, and deployed live.</p>
+      <div class="project-stats">
+        <div class="stat"><div class="num">8</div><div class="label">Domain Entities</div></div>
+        <div class="stat"><div class="num">10</div><div class="label">REST Endpoints</div></div>
+        <div class="stat"><div class="num">18</div><div class="label">Unit Tests</div></div>
+      </div>
+      <div class="project-tags">
+        <span class="tag">C#</span><span class="tag">.NET 10</span><span class="tag">PostgreSQL</span><span class="tag">EF Core</span><span class="tag">Docker</span><span class="tag">xUnit</span><span class="tag">GitHub Actions</span>
+      </div>
+    </article>
+
+    <article class="project-card">
+      <div class="project-num">PROJECT 02</div>
+      <h3 class="project-title"><em>Financial Analyst</em> Agent</h3>
+      <p class="project-desc">End-to-end RAG pipeline ingesting real 10-K filings from SEC EDGAR. 220k+ characters embedded via Gemini, stored in ChromaDB. Top-5 semantic retrieval with cited answers — eliminating hallucinations by grounding responses in source documents.</p>
+      <div class="project-stats">
+        <div class="stat"><div class="num">220K+</div><div class="label">Chars Embedded</div></div>
+        <div class="stat"><div class="num">Top-5</div><div class="label">Retrieval</div></div>
+        <div class="stat"><div class="num">∞</div><div class="label">Public Co. Coverage</div></div>
+      </div>
+      <div class="project-tags">
+        <span class="tag">Python</span><span class="tag">Gemini</span><span class="tag">ChromaDB</span><span class="tag">Streamlit</span><span class="tag">SEC EDGAR</span><span class="tag">RAG</span>
+      </div>
+    </article>
+
+    <article class="project-card">
+      <div class="project-num">PROJECT 03</div>
+      <h3 class="project-title"><em>F&amp;O Anomaly</em> Detection</h3>
+      <p class="project-desc">A 3-model ensemble — Isolation Forest, LSTM Autoencoder, DBSCAN — over 2.5M+ NSE/BSE F&amp;O records. Without labels, the system independently flagged Sept 20, 2019 as the most anomalous NIFTY day, correlating with the Saudi Aramco oil attack four days prior.</p>
+      <div class="project-stats">
+        <div class="stat"><div class="num">2.5M+</div><div class="label">Trade Records</div></div>
+        <div class="stat"><div class="num">651</div><div class="label">3-Model Hits</div></div>
+        <div class="stat"><div class="num">3.1%</div><div class="label">Anomaly Rate</div></div>
+      </div>
+      <div class="project-tags">
+        <span class="tag">PyTorch</span><span class="tag">scikit-learn</span><span class="tag">LSTM</span><span class="tag">Isolation Forest</span><span class="tag">DBSCAN</span>
+      </div>
+    </article>
+
+    <article class="project-card">
+      <div class="project-num">PROJECT 04</div>
+      <h3 class="project-title"><em>Credit Risk</em> Intelligence Platform</h3>
+      <p class="project-desc">Four-model credit scoring system on 391k LendingClub loans. SHAP TreeExplainer surfaces per-loan reasoning; CFPB 4/5ths rule audit detected disparate impact (ratio: 0.68) against low-income applicants. Findings live in an interactive Dash dashboard.</p>
+      <div class="project-stats">
+        <div class="stat"><div class="num">391K</div><div class="label">Loans</div></div>
+        <div class="stat"><div class="num">0.735</div><div class="label">AUC-ROC</div></div>
+        <div class="stat"><div class="num">0.68</div><div class="label">Fairness Ratio</div></div>
+      </div>
+      <div class="project-tags">
+        <span class="tag">XGBoost</span><span class="tag">LightGBM</span><span class="tag">SHAP</span><span class="tag">Dash</span><span class="tag">Fairness</span>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ===== SKILLS ===== -->
+<section id="skills" class="reveal">
+  <div class="section-header">
+    <span class="section-num">03 / Toolkit</span>
+    <h2 class="section-title">What I <em>work with</em>.</h2>
+    <span class="section-kicker">Stack</span>
+  </div>
+
+  <div class="skills-block">
+
+    <div class="skill-group">
+      <h3>Languages</h3>
+      <div class="pills">
+        <span class="pill">Python</span><span class="pill">C#</span><span class="pill">Java</span><span class="pill">C / C++</span><span class="pill">SQL</span><span class="pill">JavaScript</span><span class="pill">TypeScript</span><span class="pill">R</span><span class="pill">HTML / CSS</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <h3>Frameworks</h3>
+      <div class="pills">
+        <span class="pill">.NET / ASP.NET Core</span><span class="pill">Entity Framework</span><span class="pill">React</span><span class="pill">Node.js</span><span class="pill">Flask</span><span class="pill">FastAPI</span><span class="pill">Streamlit</span><span class="pill">Dash</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <h3>AI &amp; ML</h3>
+      <div class="pills">
+        <span class="pill">PyTorch</span><span class="pill">scikit-learn</span><span class="pill">XGBoost</span><span class="pill">LightGBM</span><span class="pill">SHAP</span><span class="pill">Gemini API</span><span class="pill">LangChain</span><span class="pill">ChromaDB</span><span class="pill">Pandas</span><span class="pill">NumPy</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <h3>Infrastructure &amp; BI</h3>
+      <div class="pills">
+        <span class="pill">Docker</span><span class="pill">Kubernetes</span><span class="pill">GCP</span><span class="pill">GitHub Actions</span><span class="pill">Apache Spark</span><span class="pill">Kafka</span><span class="pill">Snowflake</span><span class="pill">Adobe Analytics</span><span class="pill">CJA</span><span class="pill">Power BI</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section id="contact" class="contact-section reveal">
+  <div class="contact-eyebrow">— Get in Touch —</div>
+  <h2 class="contact-headline">Let's <em>build</em> something thoughtful together.</h2>
+
+  <div class="contact-grid">
+    <a href="mailto:saumyg3@uci.edu" class="contact-cell">
+      <span class="label">Email</span>
+      <span class="value">saumyg3@uci.edu</span>
+      <span class="arrow">→</span>
+    </a>
+    <a href="tel:+19253197591" class="contact-cell">
+      <span class="label">Phone</span>
+      <span class="value">+1 (925) 319-7591</span>
+      <span class="arrow">→</span>
+    </a>
+    <a href="https://www.linkedin.com/in/saumya-goyal-8a8005327/" class="contact-cell" target="_blank" rel="noopener">
+      <span class="label">LinkedIn</span>
+      <span class="value">/in/saumya-goyal</span>
+      <span class="arrow">→</span>
+    </a>
+    <a href="https://github.com/saumyg3" class="contact-cell" target="_blank" rel="noopener">
+      <span class="label">GitHub</span>
+      <span class="value">@saumyg3</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div>© Saumya Goyal · 2026</div>
+  <div>Designed &amp; coded with care · Irvine, CA</div>
+</footer>
+
+<script>
+  // Nav scroll state
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // Reveal-on-scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Subtle parallax on hero cards
+  const cards = document.querySelectorAll('.hero-card');
+  document.querySelector('.hero').addEventListener('mousemove', (e) => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 20;
+    const y = (e.clientY / window.innerHeight - 0.5) * 20;
+    cards.forEach((card, i) => {
+      const factor = (i + 1) * 0.3;
+      card.style.transform = `translate(${x * factor}px, ${y * factor}px) rotate(${card.dataset.rot || 0}deg)`;
+    });
+  });
+</script>
+
+</body>
+</html>
