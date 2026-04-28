@@ -374,6 +374,9 @@
     position: relative;
     overflow: hidden;
     transition: transform 0.4s ease, box-shadow 0.4s ease;
+    text-decoration: none;
+    color: inherit;
+    display: block;
   }
 
   .project-card:hover {
@@ -393,6 +396,29 @@
   }
 
   .project-card:hover::before { transform: scaleX(1); }
+
+  .project-card .view-repo {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: opacity 0.3s ease, transform 0.3s ease, color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .project-card:hover .view-repo {
+    opacity: 1;
+    transform: translateY(0);
+    color: var(--accent);
+  }
 
   .project-num {
     font-family: var(--mono);
@@ -787,7 +813,8 @@
 
   <div class="projects-grid">
 
-    <article class="project-card">
+    <a class="project-card" href="https://github.com/saumyg3/medpay" target="_blank" rel="noopener">
+      <span class="view-repo">View on GitHub →</span>
       <div class="project-num">PROJECT 01</div>
       <h3 class="project-title"><em>MedPay</em> — Healthcare Claim Processing API</h3>
       <p class="project-desc">A layered C# / .NET 10 system handling real insurance math — copay → deductible → coinsurance → out-of-pocket maximum — with 6 business-rule validations, 10 REST endpoints, and 18 unit tests. Containerized, CI/CD'd, and deployed live.</p>
@@ -799,9 +826,10 @@
       <div class="project-tags">
         <span class="tag">C#</span><span class="tag">.NET 10</span><span class="tag">PostgreSQL</span><span class="tag">EF Core</span><span class="tag">Docker</span><span class="tag">xUnit</span><span class="tag">GitHub Actions</span>
       </div>
-    </article>
+    </a>
 
-    <article class="project-card">
+    <a class="project-card" href="https://github.com/saumyg3/financial-analyst-agent" target="_blank" rel="noopener">
+      <span class="view-repo">View on GitHub →</span>
       <div class="project-num">PROJECT 02</div>
       <h3 class="project-title"><em>Financial Analyst</em> Agent</h3>
       <p class="project-desc">End-to-end RAG pipeline ingesting real 10-K filings from SEC EDGAR. 220k+ characters embedded via Gemini, stored in ChromaDB. Top-5 semantic retrieval with cited answers — eliminating hallucinations by grounding responses in source documents.</p>
@@ -813,9 +841,10 @@
       <div class="project-tags">
         <span class="tag">Python</span><span class="tag">Gemini</span><span class="tag">ChromaDB</span><span class="tag">Streamlit</span><span class="tag">SEC EDGAR</span><span class="tag">RAG</span>
       </div>
-    </article>
+    </a>
 
-    <article class="project-card">
+    <a class="project-card" href="https://github.com/saumyg3/fno-anomaly-detection" target="_blank" rel="noopener">
+      <span class="view-repo">View on GitHub →</span>
       <div class="project-num">PROJECT 03</div>
       <h3 class="project-title"><em>F&amp;O Anomaly</em> Detection</h3>
       <p class="project-desc">A 3-model ensemble — Isolation Forest, LSTM Autoencoder, DBSCAN — over 2.5M+ NSE/BSE F&amp;O records. Without labels, the system independently flagged Sept 20, 2019 as the most anomalous NIFTY day, correlating with the Saudi Aramco oil attack four days prior.</p>
@@ -827,9 +856,10 @@
       <div class="project-tags">
         <span class="tag">PyTorch</span><span class="tag">scikit-learn</span><span class="tag">LSTM</span><span class="tag">Isolation Forest</span><span class="tag">DBSCAN</span>
       </div>
-    </article>
+    </a>
 
-    <article class="project-card">
+    <a class="project-card" href="https://github.com/saumyg3/credit-risk-platform" target="_blank" rel="noopener">
+      <span class="view-repo">View on GitHub →</span>
       <div class="project-num">PROJECT 04</div>
       <h3 class="project-title"><em>Credit Risk</em> Intelligence Platform</h3>
       <p class="project-desc">Four-model credit scoring system on 391k LendingClub loans. SHAP TreeExplainer surfaces per-loan reasoning; CFPB 4/5ths rule audit detected disparate impact (ratio: 0.68) against low-income applicants. Findings live in an interactive Dash dashboard.</p>
@@ -841,7 +871,7 @@
       <div class="project-tags">
         <span class="tag">XGBoost</span><span class="tag">LightGBM</span><span class="tag">SHAP</span><span class="tag">Dash</span><span class="tag">Fairness</span>
       </div>
-    </article>
+    </a>
 
   </div>
 </section>
